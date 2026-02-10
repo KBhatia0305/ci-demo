@@ -1,10 +1,15 @@
-name: CI   # name of the entire process
+name: CI   # name of the entire workflow
 
 on: push   # when will the CI process trigger 
 
 jobs:
   linting:   # name of the job to be executed
-    runs-on: ubuntu-latest    # where to run 
+    runs-on: ${{ matrix.os }}    # code will run on which OS (in our case 3 differnt OS) 
+
+    strategy:
+      matrix: 
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        version: ['3.9', '3.10']
 
     steps:   # what is to be done in this particular job 
       - name: code checkout     # name of first step 
@@ -13,7 +18,7 @@ jobs:
       - name: setup python    # name of second step 
         uses: actions/setup-python@v2    # what is to be done in second step (setup python in runner)
         with: 
-          python-version: '3.9' 
+          python-version: ${{ matrix.version }}
  
       - name: install flake8
         run: |                      # install flake8 in runner 
