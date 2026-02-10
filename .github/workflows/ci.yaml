@@ -16,10 +16,10 @@ jobs:
           python-version: '3.9' 
  
       - name: install flake8
-        run:                         # install flake8 in runner 
+        run: |                      # install flake8 in runner 
           python -m pip install --upgrade pip
           pip install 'flake8'
         
       - name: run flake8
-        run:              # run flake8 in the specified app 
+        run: |              # run flake8 in the specified app 
           flake8 app.py
