@@ -1,0 +1,23 @@
+name: CI   # name of the entire process
+
+on: push   # when will the CI process trigger 
+
+jobs:
+  linting:   # name of the job to be executed
+    runs-on: ubuntu-latest    # where to run 
+
+    steps:   # what is to be done in this particular job 
+      - name: code checkout     # name of first step 
+        uses: actions/checkout@v3   # what is to be done in first step (copy code into runner) 
+
+      - name: setup python    # name of second step 
+        uses: actions/setup-python@v2    # what is to be done in second step (setup python in runner) 
+ 
+      - name: install flake8
+        run:                         # install flake8 in runner 
+          python -m pip install --upgrade pip
+          pip install flake8
+        
+      - name: run flake8
+        run:              # run flake8 in the specified app 
+          flake8 app.py
